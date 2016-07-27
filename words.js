@@ -8,9 +8,18 @@ function wordsDAO(database) {
     this.db = database;
 
     this.getWords = function(category, page, itemsPerPage, callback) {
-
-        
-        callback(pageItems);
+        var words = [];
+        var cursor =db.collection('words').find();
+        cursor.each(function(err, doc) {
+            assert.equal(err, null);
+            if (doc != null) {
+                console.dir(doc);
+                words.add(doc);
+            } else {
+                callback();
+            }
+        });
+        callback(words);
     }
 
     this.getNumItems = function(category, callback) {
@@ -23,4 +32,4 @@ function wordsDAO(database) {
 }
 
 
-module.exports.ItemDAO = wordsDAO;
+module.exports.wordsDAO = wordsDAO;

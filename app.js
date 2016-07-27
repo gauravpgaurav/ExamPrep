@@ -62,12 +62,11 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
   router.get("/", function(req, res) {
     "use strict";
 
+    var words = new wordsDAO(db);
     var page = req.query.page ? parseInt(req.query.page) : 0;
     var category = req.query.category ? req.query.category : "All";
 
-    items.getCategories(function(categories) {
-
-      items.getItems(category, page, ITEMS_PER_PAGE, function(pageItems) {
+    words.getWords(category, page, ITEMS_PER_PAGE, function(pageWords) {
 
         items.getNumItems(category, function(itemCount) {
 
@@ -76,18 +75,17 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
             numPages = Math.ceil(itemCount / ITEMS_PER_PAGE);
           }
 
-          res.render('home', { category_param: category,
-            categories: categories,
+          res.render('home', { 
             useRangeBasedPagination: false,
             itemCount: itemCount,
             pages: numPages,
             page: page,
-            items: pageItems });
+            words: pageWords });
 
         });
       });
     });
-  });
+
 });
 // Start the server listening
 var server = app.listen(3000, function() {
