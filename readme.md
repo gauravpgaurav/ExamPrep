@@ -27,4 +27,4 @@ ExamPrep is a vocabulary builder tool to prepare for various examinations.
 1. Open the root folder of the application in cmd/terminal and type -
 
      **node app.js**
-2. Open http://localhost:3000/ in browser.
+2. Open [http://localhost:3000/] in browser.
