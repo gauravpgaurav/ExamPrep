@@ -59,6 +59,7 @@ app.use(function(err, req, res, next) {
 
 MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
   // Homepage
+  var router = express.Router();
   router.get("/", function(req, res) {
     "use strict";
 
@@ -75,7 +76,7 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
             numPages = Math.ceil(itemCount / ITEMS_PER_PAGE);
           }
 
-          res.render('home', { 
+          res.render('home', {
             useRangeBasedPagination: false,
             itemCount: itemCount,
             pages: numPages,
