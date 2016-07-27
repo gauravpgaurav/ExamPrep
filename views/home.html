@@ -8,10 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/static/img/book-1.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/static/img/book-1.ico" type="image/x-icon" />
 
-    <title>MongoMart - Shop MongoDB Gear</title>
+    <title>ExamPrep - Prep Tool</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
@@ -57,11 +57,12 @@
                         <a href="/words/{{words._id}}">
                             {{words.word}}
                         </a>
+                        <h6>{{words.level}}</h6>
                     </div>
                     <div class="col-md-5">
                         <h3><a href="/words/{{words._id}}">{{word.word}}</a></h3>
                         <h4>{{words.meaning}}</h4>
-                        <p>{{words.meaning}}</p>
+                        <p>{{words.example}}</p>
                     </div>
                 </div>
                 <!-- /.row -->
