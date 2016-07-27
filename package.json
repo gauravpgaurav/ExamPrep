@@ -1,6 +1,6 @@
 {
   "name": "examprep",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Exam Prep Tool",
   "main": "app.js",
   "dependencies": {
@@ -10,5 +10,9 @@
     "nunjucks": "~2.2.0",
     "nunjucks-date": "~1.2.0"
   },
-  "author": "Gaurav Pant"
+  "author": "Gaurav Pant",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gauravpgaurav/ExamPrep.git"
+  }
 }
