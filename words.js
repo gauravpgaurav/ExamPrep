@@ -52,17 +52,54 @@ function wordsDAO(database) {
     }
 
     this.searchWords = function(query, page, itemsPerPage, callback) {
-        this.db.collection('words').find( { $text : {$search : query}  } , {score : { $meta: "textScore" } })
-            .sort( { score: { $meta: "textScore" } } ), function (err, data) {
-            callback(data);
-        };
+        this.db.collection('words').find({
+            "$text": {
+                "$search": query
+            }
+        },{
+            "$score": {
+                $meta: "textScore"
+            }
+        }
+        )
+            //.sort({ score: { $meta: "textScore" } })
+            .skip(page * itemsPerPage)
+            .limit(itemsPerPage).toArray(function (err, data) {
+            if (data.length == 0) {
+                callback(null);
+            }
+            else {
+                callback(data);
+            }
+        });
+
     }
 
     this.getNumSearchWords = function(query, callback) {
         "use strict";
-        this.db.collection('words').find().count(function (err, count) {
-            callback(count.length);
-        });
+        this.db.collection('words').find({
+            "$text": {
+                "$search": query
+            }
+        })
+            .count(function (err, count) {
+                callback(count);
+            });
+    }
+
+    this.addWord = function(wordTitle, wordLevel, wordMeaning, wordExample, callback) {
+        "use strict";
+        this.db.collection('words').insertOne(
+            {
+                "word": wordTitle,
+                "level": wordLevel,
+                "meaning": wordMeaning,
+                "example": wordExample,
+                "synonym": ''
+            }, function(err, results) {
+                callback(results);
+            });
+
     }
 }
 

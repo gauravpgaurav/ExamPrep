@@ -42,7 +42,7 @@
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-7">
-                    <form method="post">
+                    <form method="post" action="/submitWord">
                         <fieldset>
                             <legend>Add Word Details :</legend>
                             <table>
@@ -51,7 +51,35 @@
                                         Word :
                                     </td>
                                     <td>
-                                        <input type="text" placeholder="Enter Word">
+                                        <input type="text" placeholder="Enter Word" name="word">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Level :
+                                    </td>
+                                    <td>
+                                        <select name="level">
+                                            <option>Common Words 1</option>
+                                            <option>Common Words 2</option>
+                                            <option>Common Words 3</option>
+                                            <option>Common Words 4</option>
+                                            <option>Common Words 5</option>
+                                            <option>Common Words 6</option>
+                                            <option>Basic 1</option>
+                                            <option>Basic 2</option>
+                                            <option>Basic 3</option>
+                                            <option>Basic 4</option>
+                                            <option>Basic 5</option>
+                                            <option>Basic 6</option>
+                                            <option>Advanced 1</option>
+                                            <option>Advanced 2</option>
+                                            <option>Advanced 3</option>
+                                            <option>Advanced 4</option>
+                                            <option>Advanced 5</option>
+                                            <option>Advanced 6</option>
+                                            <option>Advanced 7</option>
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -59,7 +87,7 @@
                                         Meaning :
                                     </td>
                                     <td>
-                                        <input type="text" placeholder="Enter Word Meaning">
+                                        <input type="text" placeholder="Enter Word Meaning" name="meaning">
                                     </td>
                                 </tr>
                                 <tr>
@@ -67,12 +95,12 @@
                                         Example :
                                     </td>
                                     <td>
-                                        <input type="text" placeholder="Enter Sentence">
+                                        <input type="text" placeholder="Enter Sentence" name="example">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a class="btn btn-primary" href="/submitWord">Submit Word<span class="glyphicon glyphicon-chevron-right"></span></a>
+                                        <input class="btn btn-primary" type="submit" value="Submit Word">
                                     </td>
                                 </tr>
                             </table>

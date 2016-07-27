@@ -23,7 +23,7 @@ var nunjucksDate = require('nunjucks-date');
 nunjucksDate.setDefaultFormat('MMMM Do YYYY, h:mm:ss a');
 env.addFilter("date", nunjucksDate);
 
-var WORDS_PER_PAGE = 5;
+var WORDS_PER_PAGE = 4;
 
 MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
   // Homepage
@@ -82,15 +82,30 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
         res.render('addWord', {});
       });
 
+  router.post("/submitWord", function(req, res) {
+    "use strict";
+
+    var words = new WordsDAO(db);
+    var wordTitle = req.body.word;
+    var wordLevel = req.body.level;
+    var wordMeaning = req.body.meaning;
+    var wordExample = req.body.example;
+
+    words.addWord( wordTitle, wordLevel, wordMeaning, wordExample, function(itemDoc) {
+      res.redirect("/");
+    });
+  });
+
   router.get("/search", function(req, res) {
     "use strict";
 
+    var words = new WordsDAO(db);
     var page = req.query.page ? parseInt(req.query.page) : 0;
     var query = req.query.query ? req.query.query : "";
 
     words.searchWords(query, page, WORDS_PER_PAGE, function(searchWords) {
 
-      items.getNumSearchWords(query, function(wordCount) {
+      words.getNumSearchWords(query, function(wordCount) {
 
         var numPages = 0;
 
@@ -99,7 +114,7 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
         }
 
         res.render('search', { queryString: query,
-          wordCount: itemCount,
+          wordCount: wordCount,
           pages: numPages,
           page: page,
           wordList: searchWords });

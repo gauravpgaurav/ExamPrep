@@ -31,13 +31,15 @@
 <body>
 
 {% include "includes/nav.html" %}
-
+<!-- Page Content -->
 <div class="container">
 
     <div class="row">
         <div class="col-md-12">
             <ol class="breadcrumb">
                 <li><a href="/">Home</a></li>
+                <li>Search</li>
+                <li class="active">"{{queryString}}"</li>
             </ol>
         </div>
     </div>
@@ -45,7 +47,7 @@
 
     <div class="row">
 
-        <div class="col-md-10">
+        <div class="col-md-12">
 
 
             {% for words in wordList %}
@@ -59,7 +61,7 @@
                     <h6>{{words.level}}</h6>
                 </div>
                 <div class="col-md-5">
-                    <h3><a href="/words/{{words._id}}">{{word.word}}</a></h3>
+                    <h3><a href="/words/{{words._id}}">{{words.word}}</a></h3>
                     <h4>{{words.meaning}}</h4>
                     <p>{{words.example}}</p>
                 </div>
@@ -68,7 +70,7 @@
 
             <hr>
 
-
+            {% endfor %}
 
             <!-- Pagination -->
             <div class="row text-center">
@@ -86,7 +88,7 @@
             </div>
 
             <div style="text-align:center;">
-                <i>{{itemCount}} Products</i>
+                <i>{{wordCount}} Words</i>
             </div>
 
             <!-- /.row -->
