@@ -23,7 +23,7 @@ var nunjucksDate = require('nunjucks-date');
 nunjucksDate.setDefaultFormat('MMMM Do YYYY, h:mm:ss a');
 env.addFilter("date", nunjucksDate);
 
-var WORDS_PER_PAGE = 15;
+var WORDS_PER_PAGE = 5;
 
 MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
   // Homepage
@@ -52,6 +52,61 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
       });
     });
 
+  router.get("/sorted", function(req, res) {
+    "use strict";
+
+    var words = new WordsDAO(db);
+    var page = req.query.page ? parseInt(req.query.page) : 0;
+
+    words.getSortedWords(page, WORDS_PER_PAGE, function(pageWords) {
+
+      words.getNumWords(function(wordsCount) {
+
+        var numPages = 0;
+        if (wordsCount > WORDS_PER_PAGE) {
+          numPages = Math.ceil(wordsCount / WORDS_PER_PAGE);
+        }
+        res.render('home', {
+          useRangeBasedPagination: false,
+          wordsCount: wordsCount,
+          pages: numPages,
+          page: page,
+          wordList: pageWords });
+
+      });
+    });
+  });
+
+  router.get("/addWord", function(req, res) {
+    "use strict";
+        res.render('addWord', {});
+      });
+
+  router.get("/search", function(req, res) {
+    "use strict";
+
+    var page = req.query.page ? parseInt(req.query.page) : 0;
+    var query = req.query.query ? req.query.query : "";
+
+    words.searchWords(query, page, WORDS_PER_PAGE, function(searchWords) {
+
+      items.getNumSearchWords(query, function(wordCount) {
+
+        var numPages = 0;
+
+        if (wordCount > WORDS_PER_PAGE) {
+          numPages = Math.ceil(wordCount / WORDS_PER_PAGE);
+        }
+
+        res.render('search', { queryString: query,
+          wordCount: itemCount,
+          pages: numPages,
+          page: page,
+          wordList: searchWords });
+
+      });
+    });
+  });
 });
 
 // Use the router routes in our application
