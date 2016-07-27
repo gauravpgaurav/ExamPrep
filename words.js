@@ -4,30 +4,29 @@ var MongoClient = require('mongodb').MongoClient,
 
 function wordsDAO(database) {
     "use strict";
-
     this.db = database;
 
-    this.getWords = function(category, page, itemsPerPage, callback) {
-        var words = [];
-        var cursor =db.collection('words').find();
+    this.getWords = function(page, itemsPerPage, callback) {
+        var words;
+        var cursor =this.db.collection('words').find();
         cursor.each(function(err, doc) {
             assert.equal(err, null);
             if (doc != null) {
-                console.dir(doc);
-                words.add(doc);
+                words = doc;
             } else {
-                callback();
+                //callback(null);
             }
         });
+        console.log(words);
         callback(words);
     }
 
-    this.getNumItems = function(category, callback) {
+    this.getNumWords = function(callback) {
         "use strict";
 
-        var numItems = 0;
+        var wordsCount = 0;
 
-        callback(numItems);
+        callback(wordsCount);
     }
 }
 
