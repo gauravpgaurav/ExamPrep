@@ -49,20 +49,19 @@
         <div class="col-md-10">
 
 
-            {% for item in items %}
+            {% for words in wordList %}
 
                 <!-- Project One -->
                 <div class="row">
                     <div class="col-md-7">
                         <a href="/words/{{words._id}}">
-                            Word
+                            {{words.word}}
                         </a>
                     </div>
                     <div class="col-md-5">
                         <h3><a href="/words/{{words._id}}">{{word.word}}</a></h3>
-                        <h4>{{word.meaning}}</h4>
-                        <p>{{word.meaning}}</p>
-                        <a class="btn btn-primary" href="/words/{{word._id}}">View Product <span class="glyphicon glyphicon-chevron-right"></span></a>
+                        <h4>{{words.meaning}}</h4>
+                        <p>{{words.meaning}}</p>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -112,7 +111,7 @@
             {% if useRangeBasedPagination == false %}
 
                 <div style="text-align:center;">
-                    <i>{{wordsCount}} Products</i>
+                    <i>{{wordsCount}} Words</i>
                 </div>
 
             {% endif %}

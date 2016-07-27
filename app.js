@@ -41,13 +41,12 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
           if (wordsCount > WORDS_PER_PAGE) {
             numPages = Math.ceil(wordsCount / WORDS_PER_PAGE);
           }
-          //console.log(pageWords);
           res.render('home', {
             useRangeBasedPagination: false,
             wordsCount: wordsCount,
             pages: numPages,
             page: page,
-            words: pageWords });
+            wordList: pageWords });
 
         });
       });
