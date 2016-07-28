@@ -17,7 +17,7 @@ ExamPrep is a vocabulary builder tool to prepare for various examinations.
    This will load the database into your local mongoDb server.
 6. To export data (while mongoDb server is runnning)-
 
-    **mongoexport --db exam --collection words --file words.json**
+    **mongoexport --db exam --collection words --out words.json**
 
    This will duplicate your local database to the current directory.
 

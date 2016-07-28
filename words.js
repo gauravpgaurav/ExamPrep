@@ -11,7 +11,7 @@ function wordsDAO(database) {
         var options = {
             "limit": itemsPerPage,
             "skip": page*itemsPerPage,
-            "sort": "level"
+            "sort": "word"
         };
         var cursor =this.db.collection('words').find({}, options);
         cursor.each(function(err, doc) {
@@ -25,14 +25,14 @@ function wordsDAO(database) {
         });
     }
 
-    this.getSortedWords = function(page, itemsPerPage, callback) {
+    this.getSortedWords = function(level, page, itemsPerPage, callback) {
         var words = [];
         var options = {
             "limit": itemsPerPage,
             "skip": page*itemsPerPage,
             "sort": "word"
         };
-        var cursor =this.db.collection('words').find({}, options);
+        var cursor =this.db.collection('words').find({"level": level}, options);
         cursor.each(function(err, doc) {
             assert.equal(err, null);
             if (doc != null) {
@@ -51,6 +51,12 @@ function wordsDAO(database) {
         });
     }
 
+    this.getNumWordsLevel = function(level, callback) {
+        "use strict";
+        this.db.collection('words').find({"level": level}).count(function (err, count) {
+            callback(count);
+        });
+    }
     this.searchWords = function(query, page, itemsPerPage, callback) {
         this.db.collection('words').find({
             "$text": {
