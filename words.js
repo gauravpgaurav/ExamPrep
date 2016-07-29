@@ -64,6 +64,7 @@ function wordsDAO(database) {
             callback(count);
         });
     }
+
     this.searchWords = function(query, page, itemsPerPage, callback) {
         this.db.collection('words').find({
             "$text": {
@@ -140,6 +141,20 @@ function wordsDAO(database) {
                 callback(results);
             });
 
+    }
+
+    this.randomWord = function (callback) {
+        "use strict";
+        var idList = [];
+        this.db.collection('words').find({}).toArray(function (err, data) {
+            var length = data.length;
+            for(var i=0; i<length; i++)
+            {
+                idList.push(data[i]._id);
+            }
+            var selectedId = idList[Math.floor(Math.random()*length)];
+            callback(selectedId);
+        });
     }
 }
 

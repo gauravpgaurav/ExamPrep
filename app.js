@@ -212,6 +212,16 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
       res.redirect("/");
     });
   });
+
+  router.get("/random", function (req, res) {
+    "use strict";
+    console.log('API');
+    var words = new WordsDAO(db);
+    words.randomWord(function(objId) {
+      //var id = require('mongodb').ObjectID(objId);
+      res.redirect("/words/" + objId);
+    });
+  });
 });
 
 // Use the router routes in our application
