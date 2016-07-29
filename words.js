@@ -131,6 +131,16 @@ function wordsDAO(database) {
             });
 
     }
+
+    this.deleteWord = function(objId, callback) {
+        "use strict";
+        var wordId = require('mongodb').ObjectID(objId);
+        this.db.collection('words').remove({ "_id" : wordId },
+            function(err, results) {
+                callback(results);
+            });
+
+    }
 }
 
 

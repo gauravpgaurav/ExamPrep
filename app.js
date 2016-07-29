@@ -203,6 +203,15 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
       });
     });
   });
+
+  router.get("/words/remove/:id", function (req, res) {
+    "use strict";
+    var words = new WordsDAO(db);
+    var id = req.params.id;
+    words.deleteWord(id, function(word) {
+      res.redirect("/");
+    });
+  });
 });
 
 // Use the router routes in our application
