@@ -32,7 +32,6 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
 
     var words = new WordsDAO(db);
     var page = req.query.page ? parseInt(req.query.page) : 0;
-    //WORDS_PER_PAGE = req.body.WORDS_PER_PAGE ? parseInt(req.body.WORDS_PER_PAGE) : 4;
     WORDS_PER_PAGE = req.query.WORDS_PER_PAGE ? parseInt(req.query.WORDS_PER_PAGE) : 4;
 
     words.getWords(page, WORDS_PER_PAGE, function(pageWords) {
@@ -103,8 +102,9 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
     
     var words = new WordsDAO(db);
     var page = req.query.page ? parseInt(req.query.page) : 0;
+    WORDS_PER_PAGE = req.query.WORDS_PER_PAGE ? parseInt(req.query.WORDS_PER_PAGE) : 4;
 
-    words.getSortedWords(level, page, WORDS_PER_PAGE, function(pageWords) {
+    words.getlevelWords(level, page, WORDS_PER_PAGE, function(pageWords) {
 
       words.getNumWordsLevel(level, function(wordsCount) {
 
@@ -113,11 +113,12 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
           numPages = Math.ceil(wordsCount / WORDS_PER_PAGE);
         }
         res.render('level', {
+          limit: WORDS_PER_PAGE,
           useRangeBasedPagination: false,
           wordsCount: wordsCount,
           pages: numPages,
           page: page,
-          level: level,
+          level: id,
           wordList: pageWords });
 
       });

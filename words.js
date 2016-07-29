@@ -25,7 +25,7 @@ function wordsDAO(database) {
         });
     }
 
-    this.getSortedWords = function(level, page, itemsPerPage, callback) {
+    this.getlevelWords = function(level, page, itemsPerPage, callback) {
         var words = [];
         var options = {
             "limit": itemsPerPage,
