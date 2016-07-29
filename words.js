@@ -6,6 +6,13 @@ function wordsDAO(database) {
     "use strict";
     this.db = database;
 
+    this.getWord = function ( objId, callback) {
+        var id = require('mongodb').ObjectID(objId);
+        this.db.collection('words').find({'_id': id}).toArray(function (err, data) {
+            callback(data[0]);
+        });
+    }
+
     this.getWords = function(page, itemsPerPage, callback) {
         var words = [];
         var options = {
@@ -102,6 +109,23 @@ function wordsDAO(database) {
                 "meaning": wordMeaning,
                 "example": wordExample,
                 "synonym": ''
+            }, function(err, results) {
+                callback(results);
+            });
+
+    }
+
+    this.updateWord = function(objId, wordTitle, wordLevel, wordMeaning, wordExample, callback) {
+        "use strict";
+        var wordId = require('mongodb').ObjectID(objId);
+        this.db.collection('words').updateOne(
+            { "_id" : wordId },
+            {
+                    "word": wordTitle,
+                    "level": wordLevel,
+                    "meaning": wordMeaning,
+                    "example": wordExample,
+
             }, function(err, results) {
                 callback(results);
             });

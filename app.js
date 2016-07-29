@@ -134,14 +134,25 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
     "use strict";
 
     var words = new WordsDAO(db);
+    var wordId = req.body.id ? req.body.id : null;
     var wordTitle = req.body.word;
     var wordLevel = req.body.level;
     var wordMeaning = req.body.meaning;
     var wordExample = req.body.example;
 
-    words.addWord( wordTitle, wordLevel, wordMeaning, wordExample, function(results) {
-      res.redirect("/addWord");
-    });
+    if(wordId == null )
+    {
+      words.addWord( wordTitle, wordLevel, wordMeaning, wordExample, function(results) {
+        res.redirect("/addWord");
+      });
+    }
+    else
+    {
+      words.updateWord( wordId, wordTitle, wordLevel, wordMeaning, wordExample, function(results) {
+        res.redirect("/words/" + wordId);
+      });
+    }
+
   });
 
   router.get("/search", function(req, res) {
@@ -167,6 +178,28 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
           page: page,
           wordList: searchWords });
 
+      });
+    });
+  });
+
+  router.get("/words/:id", function (req, res) {
+    "use strict";
+    var words = new WordsDAO(db);
+    var id = req.params.id;
+    words.getWord(id, function(word) {
+        res.render('word', {
+          words: word
+        });
+    });
+  });
+
+  router.get("/words/edit/:id", function (req, res) {
+    "use strict";
+    var words = new WordsDAO(db);
+    var id = req.params.id;
+    words.getWord(id, function(word) {
+      res.render('editWord', {
+        words: word
       });
     });
   });
