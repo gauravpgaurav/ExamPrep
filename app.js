@@ -143,7 +143,11 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
     if(wordId == null )
     {
       words.addWord( wordTitle, wordLevel, wordMeaning, wordExample, function(results) {
+        var id = results.ops[0]._id;
+        //To add multiple words
         res.redirect("/addWord");
+        //To add one word at a time
+        //res.redirect("/words/" + id);
       });
     }
     else
@@ -215,10 +219,8 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
 
   router.get("/random", function (req, res) {
     "use strict";
-    console.log('API');
     var words = new WordsDAO(db);
     words.randomWord(function(objId) {
-      //var id = require('mongodb').ObjectID(objId);
       res.redirect("/words/" + objId);
     });
   });
