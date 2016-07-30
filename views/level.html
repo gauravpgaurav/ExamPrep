@@ -102,49 +102,30 @@
 
 
             <!-- Pagination -->
-            <div class="row text-center">
-                <div class="col-lg-12">
-                    <ul class="pagination">
+       
 
-                        <!-- Show page numbers for pagination -->
-                        {% if useRangeBasedPagination == false %}
+            
 
-                        {% for i in range(pages) %}
-                        {% if page == i %}
-                        <li class="active">
-                            {% else %}
-                        <li class="inactive">
-                            {% endif %}
-                            <a href="/level/{{level}}?page={{i}}&WORDS_PER_PAGE={{limit}}">{{i + 1}}</a>
-                        </li>
-                        {% endfor %}
+                {% if limit > wordsCount %}
 
-                        {% endif %}
+                    {% if wordsCount == 1 %}
+                        <div style="text-align:center;">
+                            <i>{{wordsCount}} Word</i>
+                        </div>
+                    {% else %}
+                        <div style="text-align:center;">
+                            <i>All {{wordsCount}} Words</i>
+                        </div>
+                    {% endif %}
 
-                        <!-- TODO-lab3 Range based Pagination, modify the useRangeBasedPagination attribute in the controller  -->
+                {% else %}
+                    <div style="text-align:center;">
+                        <i>{{limit}} Words out of {{wordsCount}} Total Words</i>
+                    </div>
 
-                        {% if useRangeBasedPagination %}
+                {% endif %}
 
-                        <#if previousPageUrl??>
-                            <li><a href="${previousPageUrl}">Previous Page</a></li>
-                        </#if>
-                        <#if nextPageUrl??>
-                            <li><a href="${nextPageUrl}">Next Page</a></li>
-                        </#if>
-
-                        {% endif %}
-
-                    </ul>
-                </div>
-            </div>
-
-            {% if useRangeBasedPagination == false %}
-
-            <div style="text-align:center;">
-                <i>{{wordsCount}} Words</i>
-            </div>
-
-            {% endif %}
+            
 
             <!-- /.row -->
         </div>

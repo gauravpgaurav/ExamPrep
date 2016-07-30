@@ -103,17 +103,24 @@
 
             {% if useRangeBasedPagination == false %}
 
-            {% if limit > wordsCount %}
-            <div style="text-align:center;">
-                <i>All {{wordsCount}} Words</i>
-            </div>
+                {% if limit > wordsCount %}
 
-            % else %}
-            <div style="text-align:center;">
-                <i>{{limit}} Words out of {{wordsCount}} Total Words</i>
-            </div>
+                    {% if wordsCount == 1 %}
+                        <div style="text-align:center;">
+                            <i>{{wordsCount}} Word</i>
+                        </div>
+                    {% else %}
+                        <div style="text-align:center;">
+                            <i>All {{wordsCount}} Words</i>
+                        </div>
+                    {% endif %}
 
-            {% endif %}
+                {% else %}
+                    <div style="text-align:center;">
+                        <i>{{limit}} Words out of {{wordsCount}} Total Words</i>
+                    </div>
+
+                {% endif %}
 
             {% endif %}
 
