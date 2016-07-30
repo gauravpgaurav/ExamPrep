@@ -32,6 +32,26 @@ function wordsDAO(database) {
         });
     }
 
+    this.getRandomWords = function(page, itemsPerPage, callback) {
+        var words = [];
+        var options = {
+            "limit": itemsPerPage,
+            "skip": page*itemsPerPage
+        };
+        var cursor =this.db.collection('words').find({}, options);
+        cursor.each(function(err, doc) {
+            assert.equal(err, null);
+            if (doc != null) {
+                words.push(doc);
+            }
+            else {
+
+                words = shuffleArray(words);
+                callback(words);
+            }
+        });
+    }
+
     this.getlevelWords = function(level, page, itemsPerPage, callback) {
         var words = [];
         var options = {
@@ -46,6 +66,25 @@ function wordsDAO(database) {
                 words.push(doc);
             }
             else {
+                callback(words);
+            }
+        });
+    }
+
+    this.getRandomlevelWords = function(level, page, itemsPerPage, callback) {
+        var words = [];
+        var options = {
+            "limit": itemsPerPage,
+            "skip": page*itemsPerPage,
+        };
+        var cursor =this.db.collection('words').find({"level": level}, options);
+        cursor.each(function(err, doc) {
+            assert.equal(err, null);
+            if (doc != null) {
+                words.push(doc);
+            }
+            else {
+                words = shuffleArray(words);
                 callback(words);
             }
         });
@@ -158,5 +197,14 @@ function wordsDAO(database) {
     }
 }
 
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
 
 module.exports.wordsDAO = wordsDAO;

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/img/book-1.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/static/img/book-1.ico" type="image/x-icon" />
+
+    <title>ExamPrep - Prep Tool</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/shop-homepage.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+{% include "includes/nav.html" %}
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="/flashcard/">Mixed</a></li>
+                <li><a href="/flash/level/0">Common Words 1</a></li>
+                <li><a href="/flash/level/1">Common Words 2</a></li>
+                <li><a href="/flash/level/2">Common Words 3</a></li>
+                <li><a href="/flash/level/3">Common Words 4</a></li>
+                <li><a href="/flash/level/4">Common Words 5</a></li>
+                <li><a href="/flash/level/5">Common Words 6</a></li>
+                <li><a href="/flash/level/6">Basic 1</a></li>
+                <li><a href="/flash/level/7">Basic 2</a></li>
+                <li><a href="/flash/level/8">Basic 3</a></li>
+                <li><a href="/flash/level/9">Basic 4</a></li>
+                <li><a href="/flash/level/10">Basic 5</a></li>
+                <li><a href="/flash/level/11">Basic 6</a></li>
+                <li><a href="/flash/level/12">Advanced 1</a></li>
+                <li><a href="/flash/level/13">Advanced 2</a></li>
+                <li><a href="/flash/level/14">Advanced 3</a></li>
+                <li><a href="/flash/level/15">Advanced 4</a></li>
+                <li><a href="/flash/level/16">Advanced 5</a></li>
+                <li><a href="/flash/level/17">Advanced 6</a></li>
+                <li><a href="/flash/level/18">Advanced 7</a></li>
+            </ol>
+        </div>
+        <div class="collapse navbar-collapse">
+            <form class="navbar-form navbar-right" action="/flash/level/{{level}}">
+                <div class="form-group">
+                    Word Limit :
+                    <input type="text" class="form-control" name="WORDS_PER_PAGE" placeholder="Enter Limit" value="{{limit}}">
+                </div>
+                <button type="submit" class="btn btn-default">Set Limit</button>
+            </form>
+
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row2">
+
+        <div class="col-md-10">
+
+
+            {% for words in wordList %}
+
+            <!-- Project One -->
+            <div class="row" id='{{words._id}}'>
+                <div class="col-md-7">
+                    <h2>{{words.word}}</h2>
+                    <h6>{{words.level}}</h6>
+                </div>
+                <div class="col-md-5" id="desc_{{words._id}}" style="display: none;">
+                    <h3><a href="/words/{{words._id}}">{{word.word}}</a></h3>
+                    <h4>{{words.meaning}}</h4>
+                    <p>{{words.example}}</p>
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <hr>
+
+            {% endfor %}
+
+
+            <!-- Pagination -->
+
+            {% if useRangeBasedPagination == false %}
+
+            {% if limit > wordsCount %}
+            <div style="text-align:center;">
+                <i>All {{wordsCount}} Words</i>
+            </div>
+
+            % else %}
+            <div style="text-align:center;">
+                <i>{{limit}} Words out of {{wordsCount}} Total Words</i>
+            </div>
+
+            {% endif %}
+
+            {% endif %}
+
+            <!-- /.row -->
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
+
+{% include "includes/footer.html" %}
+
+</body>
+<script>
+    $(document).ready(function(){
+        $(".row").click(function () {
+            var id = $(this).attr('id');
+            $(".col-md-5").hide();
+            $("#desc_" + id).show();
+        });
+    });
+</script>
+</html>
