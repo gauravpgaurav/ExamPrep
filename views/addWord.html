@@ -51,7 +51,7 @@
                                         Word :
                                     </td>
                                     <td>
-                                        <input type="text" placeholder="Enter Word" name="word">
+                                        <input type="text" placeholder="Enter Word" name="word" class="wordInput">
                                     </td>
                                 </tr>
                                 <tr>
@@ -87,7 +87,7 @@
                                         Meaning :
                                     </td>
                                     <td>
-                                        <textarea rows="2" cols="50" placeholder="Enter Word Meaning" name="meaning"></textarea>
+                                        <textarea rows="2" cols="50" placeholder="Enter Word Meaning" name="meaning" class="wordInput"></textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -95,7 +95,7 @@
                                         Example :
                                     </td>
                                     <td>
-                                        <textarea rows="5" cols="50" placeholder="Enter Sentence" name="example"></textarea>
+                                        <textarea rows="5" cols="50" placeholder="Enter Sentence" name="example" class="wordInput"></textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -109,6 +109,7 @@
                             </table>
                         </fieldset>
                     </form>
+                </div>
             </div>
         </div>
     </div>
@@ -119,5 +120,13 @@
 {% include "includes/footer.html" %}
 
 </body>
-
+<script>
+    $(document).ready(function(){
+        $(".wordInput").focusout(function () {
+            var val = $(this).val();
+            val = val.charAt(0).toUpperCase() + val.slice(1);
+            $(this).val(val);
+        });
+    });
+</script>
 </html>
