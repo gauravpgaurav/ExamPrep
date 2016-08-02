@@ -15,6 +15,17 @@ ExamPrep is a vocabulary builder tool to prepare for various examinations.
       **mongoimport --db exam --collection words --file words.json**
 
    This will load the database into your local mongoDb server.
+6. To make search work. Text indexes must be created. Open mongo, switch to exam database & type -
+
+	**db.words.createIndex(
+   {
+     	"level": "text",
+     	"meaning": "text",
+	"word": "text"
+   }
+ );**
+
+
 6. To export data (while mongoDb server is runnning)-
 
     **mongoexport --db exam --collection words --out words.json**
