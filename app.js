@@ -54,6 +54,33 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
       });
     });
 
+  router.get("/bookmarkedWords", function(req, res) {
+    "use strict";
+
+    var words = new WordsDAO(db);
+    var page = req.query.page ? parseInt(req.query.page) : 0;
+    WORDS_PER_PAGE = req.query.WORDS_PER_PAGE ? parseInt(req.query.WORDS_PER_PAGE) : 4;
+
+    words.getMarkedWords(page, WORDS_PER_PAGE, function(pageWords) {
+
+      words.getNumBookmarkedWords(function(wordsCount) {
+
+        var numPages = 0;
+        if (wordsCount > WORDS_PER_PAGE) {
+          numPages = Math.ceil(wordsCount / WORDS_PER_PAGE);
+        }
+        res.render('bookmarkedWords', {
+          limit: WORDS_PER_PAGE,
+          useRangeBasedPagination: false,
+          wordsCount: wordsCount,
+          pages: numPages,
+          page: page,
+          wordList: pageWords });
+
+      });
+    });
+  });
+
   router.get("/level/:id", function(req, res) {
     "use strict";
 
@@ -286,13 +313,25 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
 
   router.get("/words/:id", function (req, res) {
     "use strict";
+    var mark = req.query.BOOKMARK ? req.query.BOOKMARK : null;
     var words = new WordsDAO(db);
     var id = req.params.id;
-    words.getWord(id, function(word) {
+    if(mark == null){
+      words.getWord(id, function(word) {
         res.render('word', {
           words: word
         });
-    });
+      });
+    }
+    else{
+      words.updateBookMark(id, mark, function(result) {
+        words.getWord(id, function(word) {
+          res.render('word', {
+            words: word
+          });
+        });
+      });
+    }
   });
 
   router.get("/words/edit/:id", function (req, res) {

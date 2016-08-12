@@ -13,6 +13,19 @@ function wordsDAO(database) {
         });
     }
 
+    this.updateBookMark = function(objId, mark, callback) {
+        "use strict";
+        var wordId = require('mongodb').ObjectID(objId);
+        this.db.collection('words').updateOne(
+            { "_id" : wordId },
+            {
+                $set: { "bookmark": mark }
+            }, function(err, results) {
+                callback(results);
+            });
+
+    }
+
     this.getWords = function(page, itemsPerPage, callback) {
         var words = [];
         var options = {
@@ -21,6 +34,25 @@ function wordsDAO(database) {
             "sort": "word"
         };
         var cursor =this.db.collection('words').find({}, options);
+        cursor.each(function(err, doc) {
+            assert.equal(err, null);
+            if (doc != null) {
+                words.push(doc);
+            }
+            else {
+                callback(words);
+            }
+        });
+    }
+
+    this.getMarkedWords = function(page, itemsPerPage, callback) {
+        var words = [];
+        var options = {
+            "limit": itemsPerPage,
+            "skip": page*itemsPerPage,
+            "sort": "word"
+        };
+        var cursor =this.db.collection('words').find({'bookmark' : 'YES'}, options);
         cursor.each(function(err, doc) {
             assert.equal(err, null);
             if (doc != null) {
@@ -93,6 +125,13 @@ function wordsDAO(database) {
     this.getNumWords = function(callback) {
         "use strict";
         this.db.collection('words').find().count(function (err, count) {
+            callback(count);
+        });
+    }
+
+    this.getNumBookmarkedWords = function(callback) {
+        "use strict";
+        this.db.collection('words').find({'bookmark' : 'YES'}).count(function (err, count) {
             callback(count);
         });
     }
