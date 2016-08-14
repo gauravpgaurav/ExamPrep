@@ -66,12 +66,15 @@ function wordsDAO(database) {
 
     this.getRandomWords = function(itemsPerPage, callback) {
         var words = [];
-        var options = {
-            "limit": itemsPerPage
-        };
-        var cursor =this.db.collection('words').find({}, options).toArray(function (err, data) {
+        var randomWords = [];
+        
+        var cursor =this.db.collection('words').find({}).toArray(function (err, data) {
            words = shuffleArray(data);
-           callback(words);
+           for(var i = 0; i<itemsPerPage; i++)
+           {
+            randomWords.push(words[i]);
+           }
+           callback(randomWords);
         });
     }
 
