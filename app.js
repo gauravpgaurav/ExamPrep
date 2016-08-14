@@ -128,7 +128,7 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
     else if(id == 19)
       level = "Advanced 7";
     else
-        level = "";
+        level = "Bonus";
     
     var words = new WordsDAO(db);
     var page = req.query.page ? parseInt(req.query.page) : 0;
@@ -232,7 +232,7 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
     else if(id == 19)
       level = "Advanced 7";
     else
-      level = "";
+      level = "Bonus";
 
     var words = new WordsDAO(db);
     var page = req.query.page ? parseInt(req.query.page) : 0;

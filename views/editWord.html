@@ -163,6 +163,12 @@
                                             {% else %}
                                                 <option>Advanced 7</option>
                                             {% endif %}
+
+                                            {% if words.level == "Bonus" %}
+                                                <option selected>Bonus</option>
+                                            {% else %}
+                                                <option>Bonus</option>
+                                            {% endif %}
                                         </select>
                                     </td>
                                 </tr>
