@@ -75,6 +75,7 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
           wordsCount: wordsCount,
           pages: numPages,
           page: page,
+          levelName: 'Bookmarked Words',
           wordList: pageWords });
 
       });
@@ -111,18 +112,20 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
     else if(id == 11)
       level = "Basic 6";
     else if(id == 12)
-      level = "Advanced 1";
+      level = "Basic 7";
     else if(id == 13)
-      level = "Advanced 2";
+      level = "Advanced 1";
     else if(id == 14)
-      level = "Advanced 3";
+      level = "Advanced 2";
     else if(id == 15)
-      level = "Advanced 4";
+      level = "Advanced 3";
     else if(id == 16)
-      level = "Advanced 5";
+      level = "Advanced 4";
     else if(id == 17)
-      level = "Advanced 6";
+      level = "Advanced 5";
     else if(id == 18)
+      level = "Advanced 6";
+    else if(id == 19)
       level = "Advanced 7";
     else
         level = "";
@@ -146,6 +149,7 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
           pages: numPages,
           page: page,
           level: id,
+          levelName: level,
           wordList: pageWords });
 
       });
@@ -161,10 +165,9 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
     "use strict";
 
     var words = new WordsDAO(db);
-    var page = req.query.page ? parseInt(req.query.page) : 0;
     WORDS_PER_PAGE = req.query.WORDS_PER_PAGE ? parseInt(req.query.WORDS_PER_PAGE) : 10;
 
-    words.getRandomWords(page, WORDS_PER_PAGE, function(pageWords) {
+    words.getRandomWords(WORDS_PER_PAGE, function(pageWords) {
 
       words.getNumWords(function(wordsCount) {
 
@@ -177,7 +180,6 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
           useRangeBasedPagination: false,
           wordsCount: wordsCount,
           pages: numPages,
-          page: page,
           wordList: pageWords });
 
       });
@@ -214,18 +216,20 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
     else if(id == 11)
       level = "Basic 6";
     else if(id == 12)
-      level = "Advanced 1";
+      level = "Basic 7";
     else if(id == 13)
-      level = "Advanced 2";
+      level = "Advanced 1";
     else if(id == 14)
-      level = "Advanced 3";
+      level = "Advanced 2";
     else if(id == 15)
-      level = "Advanced 4";
+      level = "Advanced 3";
     else if(id == 16)
-      level = "Advanced 5";
+      level = "Advanced 4";
     else if(id == 17)
-      level = "Advanced 6";
+      level = "Advanced 5";
     else if(id == 18)
+      level = "Advanced 6";
+    else if(id == 19)
       level = "Advanced 7";
     else
       level = "";
@@ -249,6 +253,7 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
           pages: numPages,
           page: page,
           level: id,
+          levelName: level,
           wordList: pageWords });
 
       });
@@ -305,6 +310,7 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
           wordCount: wordCount,
           pages: numPages,
           page: page,
+          levelName: 'Search Result',
           wordList: searchWords });
 
       });

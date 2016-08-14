@@ -64,23 +64,14 @@ function wordsDAO(database) {
         });
     }
 
-    this.getRandomWords = function(page, itemsPerPage, callback) {
+    this.getRandomWords = function(itemsPerPage, callback) {
         var words = [];
         var options = {
-            "limit": itemsPerPage,
-            "skip": page*itemsPerPage
+            "limit": itemsPerPage
         };
-        var cursor =this.db.collection('words').find({}, options);
-        cursor.each(function(err, doc) {
-            assert.equal(err, null);
-            if (doc != null) {
-                words.push(doc);
-            }
-            else {
-
-                words = shuffleArray(words);
-                callback(words);
-            }
+        var cursor =this.db.collection('words').find({}, options).toArray(function (err, data) {
+           words = shuffleArray(data);
+           callback(words);
         });
     }
 
