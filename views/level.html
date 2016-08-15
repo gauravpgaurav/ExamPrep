@@ -109,7 +109,39 @@
 
 
             <!-- Pagination -->
-       
+            <div class="row text-center">
+                <div class="col-lg-12">
+                    <ul class="pagination">
+
+                        <!-- Show page numbers for pagination -->
+                        {% if useRangeBasedPagination == false %}
+
+                        {% for i in range(pages) %}
+                        {% if page == i %}
+                        <li class="active">
+                            {% else %}
+                        <li class="inactive">
+                            {% endif %}
+                            <a href="/level/{{level}}/?page={{i}}&WORDS_PER_PAGE={{limit}}">{{i + 1}}</a>
+                        </li>
+                        {% endfor %}
+
+                        {% endif %}
+
+                        {% if useRangeBasedPagination %}
+
+                        <#if previousPageUrl??>
+                            <li><a href="${previousPageUrl}">Previous Page</a></li>
+                        </#if>
+                        <#if nextPageUrl??>
+                            <li><a href="${nextPageUrl}">Next Page</a></li>
+                        </#if>
+
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
 
             
 

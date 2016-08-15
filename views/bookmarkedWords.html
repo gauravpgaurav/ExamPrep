@@ -38,7 +38,7 @@
     </div>
     <div class="row">
         <div class="collapse navbar-collapse">
-            <form class="navbar-form navbar-right" action="/">
+            <form class="navbar-form navbar-right" action="/bookmarkedWords">
                 <div class="form-group">
                     Word Limit :
                     <input type="text" class="form-control" name="WORDS_PER_PAGE" placeholder="Enter Limit" value="{{limit}}">
@@ -92,7 +92,7 @@
                             {% else %}
                         <li class="inactive">
                             {% endif %}
-                            <a href="/?page={{i}}&WORDS_PER_PAGE={{limit}}">{{i + 1}}</a>
+                            <a href="/bookmarkedWords/?page={{i}}&WORDS_PER_PAGE={{limit}}">{{i + 1}}</a>
                         </li>
                         {% endfor %}
 

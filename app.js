@@ -32,7 +32,7 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
 
     var words = new WordsDAO(db);
     var page = req.query.page ? parseInt(req.query.page) : 0;
-    WORDS_PER_PAGE = req.query.WORDS_PER_PAGE ? parseInt(req.query.WORDS_PER_PAGE) : 4;
+    WORDS_PER_PAGE = req.query.WORDS_PER_PAGE ? parseInt(req.query.WORDS_PER_PAGE) : 8;
 
     words.getWords(page, WORDS_PER_PAGE, function(pageWords) {
 
@@ -59,7 +59,7 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
 
     var words = new WordsDAO(db);
     var page = req.query.page ? parseInt(req.query.page) : 0;
-    WORDS_PER_PAGE = req.query.WORDS_PER_PAGE ? parseInt(req.query.WORDS_PER_PAGE) : 4;
+    WORDS_PER_PAGE = req.query.WORDS_PER_PAGE ? parseInt(req.query.WORDS_PER_PAGE) : 8;
 
     words.getMarkedWords(page, WORDS_PER_PAGE, function(pageWords) {
 
