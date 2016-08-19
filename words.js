@@ -97,11 +97,10 @@ function wordsDAO(database) {
         });
     }
 
-    this.getRandomlevelWords = function(level, page, itemsPerPage, callback) {
+    this.getRandomlevelWords = function(level, itemsPerPage, callback) {
         var words = [];
         var options = {
-            "limit": itemsPerPage,
-            "skip": page*itemsPerPage,
+            "limit": itemsPerPage
         };
         var cursor =this.db.collection('words').find({"level": level}, options);
         cursor.each(function(err, doc) {
@@ -116,6 +115,24 @@ function wordsDAO(database) {
         });
     }
 
+    this.getRandomBookmarkWords = function(itemsPerPage, callback) {
+        var words = [];
+        var options = {
+            "limit": itemsPerPage
+        };
+        var cursor =this.db.collection('words').find({'bookmark' : 'YES'}, options);
+        cursor.each(function(err, doc) {
+            assert.equal(err, null);
+            if (doc != null) {
+                words.push(doc);
+            }
+            else {
+                words = shuffleArray(words);
+                callback(words);
+            }
+        });
+    }
+    
     this.getNumWords = function(callback) {
         "use strict";
         this.db.collection('words').find().count(function (err, count) {
