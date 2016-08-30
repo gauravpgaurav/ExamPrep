@@ -228,6 +228,24 @@ function wordsDAO(database) {
             callback(selectedId);
         });
     }
+
+    this.developer = function (superLevelCode, callback) {
+        var words = [];
+        var superLevels = ["Common Words", "Basic", "Advanced"];
+        var options = {
+            "sort": "word"
+        };
+        var cursor =this.db.collection('words').find({"sup-level": superLevels[superLevelCode], 'level': {'$ne': 'Bonus' }}, options);
+        cursor.each(function(err, doc) {
+            assert.equal(err, null);
+            if (doc != null) {
+                words.push(doc);
+            }
+            else {
+                callback(words);
+            }
+        });
+    }
 }
 
 function shuffleArray(array) {

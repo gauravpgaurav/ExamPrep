@@ -367,6 +367,17 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
       res.redirect("/words/" + objId);
     });
   });
+
+  router.get("/developer/:superCode", function (req, res) {
+    "use strict";
+    var superLevelCode = req.params.superCode;
+    var words = new WordsDAO(db);
+    words.developer(superLevelCode, function(word) {
+      res.render('dev', {
+        wordList: word
+      });
+    });
+  });
 });
 
 // Use the router routes in our application
