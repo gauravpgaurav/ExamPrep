@@ -235,10 +235,9 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
       level = "Bonus";
 
     var words = new WordsDAO(db);
-    var page = req.query.page ? parseInt(req.query.page) : 0;
     WORDS_PER_PAGE = req.query.WORDS_PER_PAGE ? parseInt(req.query.WORDS_PER_PAGE) : 10;
 
-    words.getRandomlevelWords(level, page, WORDS_PER_PAGE, function(pageWords) {
+    words.getRandomlevelWords(level, WORDS_PER_PAGE, function(pageWords) {
 
       words.getNumWordsLevel(level, function(wordsCount) {
 
@@ -250,10 +249,33 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
           limit: WORDS_PER_PAGE,
           useRangeBasedPagination: false,
           wordsCount: wordsCount,
-          pages: numPages,
-          page: page,
           level: id,
           levelName: level,
+          wordList: pageWords });
+
+      });
+    });
+  });
+
+  router.get("/flash/bookmarked", function(req, res) {
+    "use strict";
+
+    var words = new WordsDAO(db);
+    WORDS_PER_PAGE = req.query.WORDS_PER_PAGE ? parseInt(req.query.WORDS_PER_PAGE) : 10;
+
+    words.getRandomBookmarkWords(WORDS_PER_PAGE, function(pageWords) {
+
+      words.getNumBookmarkedWords(function(wordsCount) {
+
+        var numPages = 0;
+        if (wordsCount > WORDS_PER_PAGE) {
+          numPages = Math.ceil(wordsCount / WORDS_PER_PAGE);
+        }
+        res.render('levelFlash', {
+          limit: WORDS_PER_PAGE,
+          useRangeBasedPagination: false,
+          wordsCount: wordsCount,
+          levelName: 'Bookmarked Words',
           wordList: pageWords });
 
       });
