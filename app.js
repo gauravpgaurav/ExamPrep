@@ -241,10 +241,6 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
 
       words.getNumWordsLevel(level, function(wordsCount) {
 
-        var numPages = 0;
-        if (wordsCount > WORDS_PER_PAGE) {
-          numPages = Math.ceil(wordsCount / WORDS_PER_PAGE);
-        }
         res.render('levelFlash', {
           limit: WORDS_PER_PAGE,
           useRangeBasedPagination: false,
@@ -397,6 +393,26 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
     words.developer(superLevelCode, function(word) {
       res.render('dev', {
         wordList: word
+      });
+    });
+  });
+
+  router.get("/developer/flash/:superCode", function (req, res) {
+    "use strict";
+    var superLevelCode = req.params.superCode;
+    var words = new WordsDAO(db);
+    WORDS_PER_PAGE = req.query.WORDS_PER_PAGE ? parseInt(req.query.WORDS_PER_PAGE) : 10;
+
+    words.developerFlashcard(superLevelCode, WORDS_PER_PAGE, function(word) {
+      words.getNumWordsDev(superLevelCode, function(superLevelData) {
+        res.render('devFlash', {
+          limit: WORDS_PER_PAGE,
+          superCode: superLevelCode,
+          useRangeBasedPagination: false,
+          wordsCount: superLevelData[1],
+          levelName: superLevelData[0],
+          wordList: word
+        });
       });
     });
   });

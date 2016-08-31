@@ -247,6 +247,7 @@ function wordsDAO(database) {
     }
 
     this.developer = function (superLevelCode, callback) {
+        "use strict";
         var words = [];
         var superLevels = ["Common Words", "Basic", "Advanced"];
         var options = {
@@ -261,6 +262,37 @@ function wordsDAO(database) {
             else {
                 callback(words);
             }
+        });
+    }
+
+    this.developerFlashcard = function(superLevelCode, itemsPerPage, callback) {
+        "use strict";
+        var words = [];
+        var superLevels = ["Common Words", "Basic", "Advanced"];
+        var options = {
+            "limit": itemsPerPage
+        };
+        var cursor =this.db.collection('words').find({"sup-level": superLevels[superLevelCode], 'level': {'$ne': 'Bonus' }}, options);
+        cursor.each(function(err, doc) {
+            assert.equal(err, null);
+            if (doc != null) {
+                words.push(doc);
+            }
+            else {
+                words = shuffleArray(words);
+                callback(words);
+            }
+        });
+    }
+
+    this.getNumWordsDev = function(superLevelCode, callback) {
+        "use strict";
+        var superLevels = ["Common Words", "Basic", "Advanced"];
+        var superLevelData = [];
+        this.db.collection('words').find({"sup-level": superLevels[superLevelCode], 'level': {'$ne': 'Bonus' }}).count(function (err, count) {
+            superLevelData.push(superLevels[superLevelCode]);
+            superLevelData.push(count);
+            callback(superLevelData);
         });
     }
 }
