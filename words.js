@@ -249,11 +249,11 @@ function wordsDAO(database) {
     this.developer = function (superLevelCode, callback) {
         "use strict";
         var words = [];
-        var superLevels = ["Common Words", "Basic", "Advanced"];
+        var superLevels = ["Common Words", "Basic", "Advanced", "Bonus"];
         var options = {
             "sort": "word"
         };
-        var cursor =this.db.collection('words').find({"sup-level": superLevels[superLevelCode], 'level': {'$ne': 'Bonus' }}, options);
+        var cursor =this.db.collection('words').find({"sup-level": superLevels[superLevelCode]}, options);
         cursor.each(function(err, doc) {
             assert.equal(err, null);
             if (doc != null) {
@@ -268,11 +268,11 @@ function wordsDAO(database) {
     this.developerFlashcard = function(superLevelCode, itemsPerPage, callback) {
         "use strict";
         var words = [];
-        var superLevels = ["Common Words", "Basic", "Advanced"];
+        var superLevels = ["Common Words", "Basic", "Advanced", "Bonus"];
         var options = {
             "limit": itemsPerPage
         };
-        var cursor =this.db.collection('words').find({"sup-level": superLevels[superLevelCode], 'level': {'$ne': 'Bonus' }}, options);
+        var cursor =this.db.collection('words').find({"sup-level": superLevels[superLevelCode]}, options);
         cursor.each(function(err, doc) {
             assert.equal(err, null);
             if (doc != null) {
@@ -287,9 +287,9 @@ function wordsDAO(database) {
 
     this.getNumWordsDev = function(superLevelCode, callback) {
         "use strict";
-        var superLevels = ["Common Words", "Basic", "Advanced"];
+        var superLevels = ["Common Words", "Basic", "Advanced", "Bonus"];
         var superLevelData = [];
-        this.db.collection('words').find({"sup-level": superLevels[superLevelCode], 'level': {'$ne': 'Bonus' }}).count(function (err, count) {
+        this.db.collection('words').find({"sup-level": superLevels[superLevelCode]}).count(function (err, count) {
             superLevelData.push(superLevels[superLevelCode]);
             superLevelData.push(count);
             callback(superLevelData);
