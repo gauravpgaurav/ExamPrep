@@ -36,8 +36,10 @@
     <div style="float:left">
                 <h3 style="text-decoration: underline;">{{levelName}}</h3>
     </div>
+
     <div class="row">
         <div class="collapse navbar-collapse">
+
             <form class="navbar-form navbar-right" action="/bookmarkedWords">
                 <div class="form-group">
                     Word Limit :
@@ -122,6 +124,15 @@
             {% endif %}
 
             <!-- /.row -->
+            {% if wordsCount > 0 %}
+
+            <form onsubmit="return confirm('Clear All Bookmarked words ?');" action="/removeAllBookmarks" role="form" method="get" style="float: right">
+                <button class="btn btn-danger" type="submit">
+                    Clear All Bookmarks
+                </button>
+            </form>
+
+            {% endif %}
         </div>
     </div>
 

@@ -26,6 +26,19 @@ function wordsDAO(database) {
 
     }
 
+    this.clearMarkedWords = function(callback) {
+        "use strict";
+
+        this.db.collection('words').updateMany(
+            { "bookmark": "YES" },
+            {
+                $set: { "bookmark": "NO" }
+            }, function(err, results) {
+                callback(results);
+            });
+
+    }
+
     this.getWords = function(page, itemsPerPage, callback) {
         var words = [];
         var options = {

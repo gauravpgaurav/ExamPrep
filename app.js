@@ -82,6 +82,16 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
     });
   });
 
+  router.get("/removeAllBookmarks", function(req, res) {
+    "use strict";
+
+    var words = new WordsDAO(db);
+
+    words.clearMarkedWords(function(results) {
+      res.redirect("/bookmarkedWords");
+    });
+  });
+
   router.get("/level/:id", function(req, res) {
     "use strict";
 
@@ -129,7 +139,7 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
       level = "Advanced 7";
     else
         level = "Bonus";
-    
+
     var words = new WordsDAO(db);
     var page = req.query.page ? parseInt(req.query.page) : 0;
     WORDS_PER_PAGE = req.query.WORDS_PER_PAGE ? parseInt(req.query.WORDS_PER_PAGE) : 4;
@@ -155,7 +165,7 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
       });
     });
   });
-  
+
   router.get("/addWord", function(req, res) {
     "use strict";
         res.render('addWord', {});
