@@ -61,6 +61,7 @@
                 <li><a href="/flash/level/19">Advanced 7</a></li>
                 <li><a href="/flash/level/20">Bonus</a></li>
                 <li><a href="/flash/bookmarked">Bookmarked</a></li>
+                <li><a href="/flash/mandatory"><strong>Mandatory</strong></a></li>
             </ol>
         </div>
         <div class="collapse navbar-collapse">
@@ -68,9 +69,11 @@
                 <h3 style="text-decoration: underline;">{{levelName}}</h3>
             </div>
             {% if levelName == "Bookmarked Words" %}
-            <form class="navbar-form navbar-right" action="/flash/bookmarked">
+                <form class="navbar-form navbar-right" action="/flash/bookmarked">
+            {% elif levelName == "Mandatory Words" %}
+                <form class="navbar-form navbar-right" action="/flash/mandatory">
             {% else %}
-            <form class="navbar-form navbar-right" action="/flash/level/{{level}}">
+                <form class="navbar-form navbar-right" action="/flash/level/{{level}}">
             {% endif %}
 
                 <div class="form-group">

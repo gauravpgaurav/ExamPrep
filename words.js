@@ -145,7 +145,34 @@ function wordsDAO(database) {
             }
         });
     }
-    
+
+    this.getRandomMandatoryWords = function(itemsPerPage, callback) {
+        var words = [];
+        var wordsPerPage = [];
+        var cursor =this.db.collection('words').find({'sup-level' : { $ne: 'Advanced' }});
+        cursor.each(function(err, doc) {
+            assert.equal(err, null);
+            if (doc != null) {
+                words.push(doc);
+            }
+            else {
+                words = shuffleArray(words);
+                for(var i = 0; i<itemsPerPage; i++)
+                {
+                    wordsPerPage.push(words[i]);
+                }
+                callback(wordsPerPage);
+            }
+        });
+    }
+
+    this.getNumMandatoryWords = function(callback) {
+        "use strict";
+        this.db.collection('words').find({'sup-level' : { $ne: 'Advanced' }}).count(function (err, count) {
+            callback(count);
+        });
+    }
+
     this.getNumWords = function(callback) {
         "use strict";
         this.db.collection('words').find().count(function (err, count) {

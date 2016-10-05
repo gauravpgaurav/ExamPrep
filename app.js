@@ -288,6 +288,31 @@ MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
     });
   });
 
+  router.get("/flash/mandatory", function(req, res) {
+    "use strict";
+
+    var words = new WordsDAO(db);
+    WORDS_PER_PAGE = req.query.WORDS_PER_PAGE ? parseInt(req.query.WORDS_PER_PAGE) : 10;
+
+    words.getRandomMandatoryWords(WORDS_PER_PAGE, function(pageWords) {
+
+      words.getNumMandatoryWords(function(wordsCount) {
+
+        var numPages = 0;
+        if (wordsCount > WORDS_PER_PAGE) {
+          numPages = Math.ceil(wordsCount / WORDS_PER_PAGE);
+        }
+        res.render('levelFlash', {
+          limit: WORDS_PER_PAGE,
+          useRangeBasedPagination: false,
+          wordsCount: wordsCount,
+          levelName: 'Mandatory Words',
+          wordList: pageWords });
+
+      });
+    });
+  });
+
   router.post("/submitWord", function(req, res) {
     "use strict";
 
