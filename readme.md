@@ -1,7 +1,7 @@
-#ExamPrep
+# ExamPrep
 ExamPrep is a vocabulary builder tool to prepare for various examinations.
 
-##Installation -
+## Installation -
 0. Download & Unzip the project [https://codeload.github.com/gauravpgaurav/ExamPrep/zip/master]
 1. Download & Install node.js [https://nodejs.org/en/download/]
 2. Download & Install mongoDb [https://www.mongodb.com/download-center?jmp=nav#community]
@@ -33,7 +33,7 @@ ExamPrep is a vocabulary builder tool to prepare for various examinations.
    This will duplicate your local database to the current directory.
 
 
-##Usage -
+## Usage -
 0. Run mongoDb (mongod) in cmd/terminal.
 1. Open the root folder of the application in cmd/terminal and type -
 
