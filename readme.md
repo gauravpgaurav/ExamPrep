@@ -2,20 +2,20 @@
 ExamPrep is a vocabulary builder tool to prepare for various examinations.
 
 ## Installation -
-0. Download & Unzip the project [https://codeload.github.com/gauravpgaurav/ExamPrep/zip/master]
-1. Download & Install node.js [https://nodejs.org/en/download/]
-2. Download & Install mongoDb [https://www.mongodb.com/download-center?jmp=nav#community]
-3. Open the root folder of the application in cmd/terminal and type -
+1. Download & Unzip the project [https://codeload.github.com/gauravpgaurav/ExamPrep/zip/master]
+2. Download & Install node.js [https://nodejs.org/en/download/]
+3. Download & Install mongoDb [https://www.mongodb.com/download-center?jmp=nav#community]
+4. Open the root folder of the application in cmd/terminal and type -
 
     **npm install**
 
-4. Run mongoDb (mongod) in cmd/terminal.
-5. Go to data folder in cmd/terminal and type -
+5. Run mongoDb (mongod) in cmd/terminal.
+7. Go to data folder in cmd/terminal and type -
 
       **mongoimport --db exam --collection words --file words.json**
 
    This will load the database into your local mongoDb server.
-6. To make search work. Text indexes must be created. Open mongo, switch to exam database & type -
+7. To make search work. Text indexes must be created. Open mongo, switch to exam database & type -
 
 	**db.words.createIndex(
    {
@@ -26,7 +26,7 @@ ExamPrep is a vocabulary builder tool to prepare for various examinations.
  );**
 
 
-6. To export data (while mongoDb server is runnning)-
+8. To export data (while mongoDb server is runnning)-
 
     **mongoexport --db exam --collection words --out words.json**
 
@@ -34,8 +34,8 @@ ExamPrep is a vocabulary builder tool to prepare for various examinations.
 
 
 ## Usage -
-0. Run mongoDb (mongod) in cmd/terminal.
-1. Open the root folder of the application in cmd/terminal and type -
+1. Run mongoDb (mongod) in cmd/terminal.
+2. Open the root folder of the application in cmd/terminal and type -
 
      **node app.js**
-2. Open [http://localhost:3000/] in browser.
+3. Open [http://localhost:3000/] in browser.
