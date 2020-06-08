@@ -1,6 +1,12 @@
 # ExamPrep
 ExamPrep is a vocabulary builder tool to prepare for various examinations.
 
+![Home Page](screenshots/homePage.png "Home Page")
+
+![Word Page](screenshots/wordPage.png "Word Page")
+
+---
+
 ## Installation -
 1. Download & Unzip the project [https://codeload.github.com/gauravpgaurav/ExamPrep/zip/master]
 2. Download & Install node.js [https://nodejs.org/en/download/]
@@ -31,7 +37,7 @@ ExamPrep is a vocabulary builder tool to prepare for various examinations.
     **mongoexport --db exam --collection words --out words.json**
 
    This will duplicate your local database to the current directory.
-
+---
 
 ## Usage -
 1. Run mongoDb (mongod) in cmd/terminal.
@@ -39,3 +45,17 @@ ExamPrep is a vocabulary builder tool to prepare for various examinations.
 
      **node app.js**
 3. Open [http://localhost:3000/] in browser.
+
+---
+
+## Special Features -
+1. Bookmark words : Revisit these words whenever you want.
+
+![Bookmarked Page](screenshots/bookmarkedPage.png "Bookmarked Page")
+
+2. Flashcard mode : Quiz yourself on these words
+   - Users can also run flashcard mode on bookmarked words
+
+![Flash Card Mode](screenshots/flashCardPage.png "Flash Card Mode")
+
+---

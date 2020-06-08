@@ -25,7 +25,8 @@ env.addFilter("date", nunjucksDate);
 
 var WORDS_PER_PAGE = 4;
 
-MongoClient.connect('mongodb://localhost:27017/exam', function(err, db) {
+MongoClient.connect('mongodb://localhost:27017/', function(err, client) {
+  var db = client.db('exam');
   // Homepage
   router.get("/", function(req, res) {
     "use strict";
